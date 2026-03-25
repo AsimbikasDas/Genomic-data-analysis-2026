@@ -13,12 +13,14 @@ export default function Home() {
   const [normalizedData, setNormalizedData] = useState<any>(null);
   const [geneIdCol, setGeneIdCol] = useState<string>("");
 
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
   const handleUpload = async (uploadedFile: File) => {
     setFile(uploadedFile);
     const formData = new FormData();
     formData.append("file", uploadedFile);
     try {
-      const res = await fetch("http://localhost:8000/api/preview", {
+      const res = await fetch(`${API_BASE_URL}/api/preview`, {
         method: "POST",
         body: formData,
       });
@@ -43,7 +45,7 @@ export default function Home() {
     formData.append("do_rpkm", config.do_rpkm.toString());
 
     try {
-      const res = await fetch("http://localhost:8000/api/normalize", {
+      const res = await fetch(`${API_BASE_URL}/api/normalize`, {
         method: "POST",
         body: formData,
       });
