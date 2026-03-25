@@ -52,6 +52,6 @@ npm run dev
 | Project Member Name | Roll Number |
 | :--- | :--- |
 | **S Kedareswar** | 22BTB0A37 |
-| **[Enter Name 2]** | [Enter Roll No 2] |
+| **Suryaansh Dev** | 22BTB0A76 |
 | **[Enter Name 3]** | [Enter Roll No 3] |
 | **[Enter Name 4]** | [Enter Roll No 4] |
