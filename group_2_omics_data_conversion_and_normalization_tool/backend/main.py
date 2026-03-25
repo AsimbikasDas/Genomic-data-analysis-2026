@@ -36,6 +36,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://project-roan-six-31.vercel.app",
+        "https://project-git-master-kedar-24s-projects.vercel.app",
         "http://localhost:3000",
         "http://localhost:3001"
     ],
