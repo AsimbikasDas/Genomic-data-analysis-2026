@@ -13,7 +13,10 @@ export default function Home() {
   const [normalizedData, setNormalizedData] = useState<any>(null);
   const [geneIdCol, setGeneIdCol] = useState<string>("");
 
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  let API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  if (API_BASE_URL && !API_BASE_URL.startsWith("http")) {
+    API_BASE_URL = "https://" + API_BASE_URL; // Defends against missed https:// in Vercel config
+  }
 
   const handleUpload = async (uploadedFile: File) => {
     setFile(uploadedFile);

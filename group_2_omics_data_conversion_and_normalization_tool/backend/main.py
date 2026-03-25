@@ -34,7 +34,11 @@ async def http_exception_handler(request: Request, exc: StarletteHTTPException):
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://project-roan-six-31.vercel.app",
+        "http://localhost:3000",
+        "http://localhost:3001"
+    ],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
