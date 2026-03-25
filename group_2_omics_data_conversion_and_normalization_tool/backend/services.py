@@ -19,7 +19,7 @@ def get_preview_data(df: pd.DataFrame) -> dict:
         "preview": df.head(5).fillna("").to_dict(orient="records")
     }
 
-def process_normalization(df: pd.DataFrame, gene_id_col: str, is_tpm: bool, is_rpkm: bool) -> list:
+def process_normalization(df: pd.DataFrame, gene_id_col: str, is_tpm: bool, is_rpkm: bool) -> pd.DataFrame:
     """Optimized domain pipeline with memory-safe operations for large-scale omics files."""
     if gene_id_col not in df.columns:
         raise ValueError(f"Selected gene column '{gene_id_col}' is missing.")

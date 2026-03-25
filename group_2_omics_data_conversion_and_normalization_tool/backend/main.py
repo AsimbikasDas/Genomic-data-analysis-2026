@@ -15,33 +15,19 @@ app = FastAPI(title="OmicsForge API", description="SOTA RNA-Seq Normalization Ba
 raw_origins = os.environ.get("ALLOWED_ORIGINS", "")
 allowed_origins = [o.strip().rstrip("/") for o in raw_origins.split(",") if o.strip()]
 
-<<<<<<< HEAD
 # Hardcoded fallbacks for deployment
 for origin in ["https://project-roan-six-31.vercel.app", "http://localhost:3000"]:
     if origin not in allowed_origins:
         allowed_origins.append(origin)
 
-=======
-# Hardcoded fallbacks to ensure the specific deployment origin is always permitted
-deployment_origin = "https://project-roan-six-31.vercel.app"
-if deployment_origin not in allowed_origins:
-    allowed_origins.append(deployment_origin)
-if "http://localhost:3000" not in allowed_origins:
-    allowed_origins.append("http://localhost:3000")
-
 # If no restricted environment variable is set, allow all for debugging/testing
->>>>>>> parent of 340d4be (feat: Implement initial FastAPI backend for omics data conversion and normalization with file upload, preview, and processing endpoints.)
 if not raw_origins:
     allowed_origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
-<<<<<<< HEAD
-    allow_credentials=False,
-=======
     allow_credentials=True if "*" not in allowed_origins else False,
->>>>>>> parent of 340d4be (feat: Implement initial FastAPI backend for omics data conversion and normalization with file upload, preview, and processing endpoints.)
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -60,11 +46,7 @@ async def http_exception_handler(request: Request, exc: StarletteHTTPException):
 
 @app.get("/")
 def health_check():
-<<<<<<< HEAD
     return {"status": "OmicsForge API is Online", "cors_mode": "Permissive (Wildcard)" if "*" in allowed_origins else "Restricted"}
-=======
-    return {"status": "OmicsForge API is Online", "cors_mode": "Permissive" if "*" in allowed_origins else "Restricted"}
->>>>>>> parent of 340d4be (feat: Implement initial FastAPI backend for omics data conversion and normalization with file upload, preview, and processing endpoints.)
 
 @app.post("/api/preview")
 async def preview_csv(file: UploadFile = File(...)):
@@ -98,15 +80,19 @@ async def normalize_csv(
         # Now returns a DataFrame thanks to our services.py update
         normalized_df = process_normalization(df, gene_id_col, is_tpm, is_rpkm)
         
-        # Stream the CSV back to the client to save memory
-        stream = io.StringIO()
-        normalized_df.to_csv(stream, index=False)
-        response = StreamingResponse(
-            iter([stream.getvalue()]),
-            media_type="text/csv"
+        # Truly stream the CSV in chunks to save memory for very large datasets
+        def csv_generator():
+            # first chunk including header
+            chunk_size = 1000
+            for i in range(0, len(normalized_df), chunk_size):
+                # Only include header for the first chunk
+                yield normalized_df.iloc[i : i + chunk_size].to_csv(index=False, header=(i == 0))
+            
+        return StreamingResponse(
+            csv_generator(), 
+            media_type="text/csv",
+            headers={"Content-Disposition": "attachment; filename=normalized_data.csv"}
         )
-        response.headers["Content-Disposition"] = "attachment; filename=normalized_data.csv"
-        return response
         
     except Exception as e:
         print(f"Normalisation Error: {str(e)}")
