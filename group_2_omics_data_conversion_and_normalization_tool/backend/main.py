@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -32,18 +33,27 @@ async def http_exception_handler(request: Request, exc: StarletteHTTPException):
         headers={"Access-Control-Allow-Origin": "*"}
     )
 
+# Dynamic CORS configuration via environment variables for deployment flexibility
+# Example value for ALLOWED_ORIGINS: "https://your-app.vercel.app,http://localhost:3000"
+raw_origins = os.environ.get("ALLOWED_ORIGINS", "")
+allowed_origins_list = [o.strip() for o in raw_origins.split(",") if o.strip()]
+
+# If no environment variable is provided, allow all origins by default to ensure 
+# deployment compatibility across different Vercel preview URLs.
+if not allowed_origins_list:
+    allowed_origins_list = ["*"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://project-roan-six-31.vercel.app",
-        "https://project-git-master-kedar-24s-projects.vercel.app",
-        "http://localhost:3000",
-        "http://localhost:3001"
-    ],
+    allow_origins=allowed_origins_list,
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/")
+def health_check():
+    return {"status": "OmicsForge API is Online", "cors_mode": "Permissive" if "*" in allowed_origins_list else "Restricted"}
 
 @app.post("/api/preview")
 async def preview_csv(file: UploadFile = File(...)):
