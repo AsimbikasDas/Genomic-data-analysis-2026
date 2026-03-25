@@ -57,4 +57,4 @@ if __name__ == "__main__":
 
     df.to_csv("gene_lengths_exonic.csv", index=False)
 
-    print(f"Done Saved {len(df)} genes")
+    print(f"Done ✅ Saved {len(df)} genes")
