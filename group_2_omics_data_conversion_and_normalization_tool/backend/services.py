@@ -58,7 +58,7 @@ def process_normalization(df: pd.DataFrame, gene_id_col: str, is_tpm: bool, is_r
         if is_rpkm:
             df[f"RPKM_{col}"] = compute_rpkm(counts, lengths).astype(np.float32)
 
-    # 4. Final conversion to records - this is the most memory-intensive step.
-    # We fillna in the DF before conversion to avoid per-dict overhead.
-    return df.fillna("").to_dict(orient="records")
+    # 4. Final preparation: fill missing values before returning
+    return df.fillna("")
+
 
