@@ -53,5 +53,5 @@ npm run dev
 | :--- | :--- |
 | **S Kedareswar** | 22BTB0A37 |
 | **Suryaansh Dev** | 22BTB0A76 |
-| **[Enter Name 3]** | [Enter Roll No 3] |
+| **Lokesh Verma** | 22BTB0A63 |
 | **[Enter Name 4]** | [Enter Roll No 4] |
