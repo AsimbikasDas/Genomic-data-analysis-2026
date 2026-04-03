@@ -5,12 +5,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Dna } from "lucide-react";
 import UploadArea from "../components/UploadArea";
 import ResultsView from "../components/ResultsView";
+import AnalysisView from "../components/AnalysisView";
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [dataPreview, setDataPreview] = useState<any>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [normalizedData, setNormalizedData] = useState<any>(null);
+  const [normalizedCsvBlob, setNormalizedCsvBlob] = useState<Blob | null>(null);
   const [geneIdCol, setGeneIdCol] = useState<string>("");
 
   let API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
@@ -82,6 +84,10 @@ export default function Home() {
 
       const result = parseCSV(csvText);
       
+      // Store CSV as a Blob for the analysis endpoint
+      const csvBlob = new Blob([csvText], { type: "text/csv" });
+      setNormalizedCsvBlob(csvBlob);
+      
       if (!result || result.length === 0) {
         alert("Warning: Normalisation resulted in an empty dataset! This usually means NONE of your Gene IDs mapped successfully against the Exonic Length Database.");
       }
@@ -98,6 +104,7 @@ export default function Home() {
 
   const resetAll = () => {
     setNormalizedData(null);
+    setNormalizedCsvBlob(null);
     setFile(null);
     setDataPreview(null);
   };
@@ -153,6 +160,11 @@ export default function Home() {
                 data={normalizedData}
                 geneIdCol={geneIdCol}
                 onReset={resetAll}
+              />
+              <AnalysisView
+                normalizedCsvBlob={normalizedCsvBlob}
+                geneIdCol={geneIdCol}
+                apiBaseUrl={API_BASE_URL}
               />
             </motion.div>
           )}

@@ -8,6 +8,7 @@ from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from services import parse_csv_file, get_preview_data, process_normalization
+from analysis import run_full_analysis
 
 app = FastAPI(title="OmicsForge API", description="SOTA RNA-Seq Normalization Backend")
 
@@ -96,4 +97,20 @@ async def normalize_csv(
         
     except Exception as e:
         print(f"Normalisation Error: {str(e)}")
+        return JSONResponse(status_code=400, content={"detail": str(e)})
+
+@app.post("/api/analyze")
+async def analyze_data(
+    file: UploadFile = File(...),
+    gene_id_col: str = Form(...),
+    method: str = Form("spearman")
+):
+    """Run analysis pipelines (correlation, PCA, distributions) on normalized data."""
+    try:
+        content = await file.read()
+        df = parse_csv_file(content)
+        results = run_full_analysis(df, gene_id_col, method)
+        return JSONResponse(content=results)
+    except Exception as e:
+        print(f"Analysis Error: {str(e)}")
         return JSONResponse(status_code=400, content={"detail": str(e)})
