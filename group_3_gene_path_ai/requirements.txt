@@ -1,0 +1,11 @@
+pydeseq2
+pandas
+numpy
+gseapy
+streamlit
+huggingface_hub
+python-dotenv
+psutil
+plotly
+mygene
+polars
