@@ -8,7 +8,7 @@
 |---|---|
 | Lokesh Verma | 22BTB0A63 |
 | Suryaansh Dev | 22BTB0A76 |
-| MS Kedareswar | 22BTB0A37 |
+| S Kedareswar | 22BTB0A37 |
 | Anugu Nithish | 22BTB0A32 |
 
 ## Goal
