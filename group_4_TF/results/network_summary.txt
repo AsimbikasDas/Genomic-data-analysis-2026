@@ -1,0 +1,42 @@
+===== RAW NETWORK SUMMARY =====
+Total raw edges: 2554399
+Activation edges: 1285856
+Repression edges: 1268543
+
+Top TFs by edge count:
+  ZNF579: 5996
+  FLI1: 5993
+  FOXA1: 5977
+  SOX10: 5968
+  POU3F3: 5964
+  FOXM1: 5959
+  SPDEF: 5957
+  GATA3: 5955
+  MAFA: 5950
+  HOXA4: 5949
+
+Strongest TF-Gene interactions:
+  FOXA1 -> CEACAM6 (1.9939)
+  FLI1 -> CLEC3A (-1.9117)
+  FOXA1 -> MUCL1 (1.7506)
+  E2F1 -> CLEC3A (1.5670)
+  FOXM1 -> NPY1R (1.5527)
+  POU3F3 -> CBLN2 (1.5484)
+  NEUROG3 -> DCD (1.5019)
+  ZNF787 -> SYT13 (-1.4851)
+  ZNF579 -> SLC30A8 (1.4429)
+  HOXA5 -> S100A7 (-1.4365)
+
+===== CLEAN NETWORK SUMMARY =====
+Total clean edges: 16987
+Top Master Regulators:
+  ZNF579: regulates 649 genes
+  FOXA1: regulates 583 genes
+  POU3F3: regulates 535 genes
+  FLI1: regulates 514 genes
+  FOXM1: regulates 485 genes
+  ZNF787: regulates 444 genes
+  ZNF467: regulates 425 genes
+  NEUROG3: regulates 384 genes
+  HOXA5: regulates 369 genes
+  SPDEF: regulates 351 genes
