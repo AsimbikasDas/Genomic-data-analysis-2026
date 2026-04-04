@@ -1,6 +1,6 @@
 # Group 2: OmicsNorm — One-Click RNA-seq Normalization & Analysis Tool
 
-🚀 **Live App: [https://omicsnorm.streamlit.app](https://omicsnorm.streamlit.app)**
+**Live App: [https://omicsnorm.streamlit.app](https://omicsnorm.streamlit.app)**
 
 ## Team Members
 
