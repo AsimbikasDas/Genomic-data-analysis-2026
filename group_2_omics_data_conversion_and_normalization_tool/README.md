@@ -1,5 +1,7 @@
 # Group 2: OmicsNorm — One-Click RNA-seq Normalization & Analysis Tool
 
+🚀 **Live App: [https://omicsnorm.streamlit.app](https://omicsnorm.streamlit.app)**
+
 ## Team Members
 
 | Project Member Name | Roll Number |
@@ -182,7 +184,7 @@ group_x/
 
 ```bash
 # Clone and enter the directory
-git clone https://github.com/YOUR_USERNAME/OmicsNorm.git
+git clone https://github.com/lokeshverma16/omicsnorm.git
 cd OmicsNorm
 
 # Create virtual environment and install dependencies
