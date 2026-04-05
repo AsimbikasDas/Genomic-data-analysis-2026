@@ -137,6 +137,10 @@ Upload the required input files using the sidebar:
 - Gene expression counts matrix (`.csv`)
 - Metadata file (`.csv`)
 
+> 💡 **Sample datasets** are included in the repository for immediate testing:
+> - `airway_counts_formatted.csv` — example gene expression counts matrix
+> - `airway_metadata_formatted.csv` — corresponding sample metadata
+
 #### Step 2 — Parameter Definition
 
 Define the biological context (for example, *Airway smooth muscle cells*) and select:
@@ -168,12 +172,15 @@ After execution, you can:
 ```
 GenePath-AI/
 │
-├── app.py                  # Main Streamlit application entry point
-├── llm_integration.py      # LLM API connection and prompt engineering
-├── requirements.txt        # Python dependencies
-├── README.md               # Documentation
-└── docs/
-    └── images/             # Screenshots for README
+├── app.py                          # Main Streamlit application entry point
+├── data_engine.py                  # Data ingestion, preprocessing, and DESeq2 pipeline
+├── llm_integration.py              # LLM API connection and prompt engineering
+├── pathway_enrichment.py           # KEGG/Reactome enrichment and gene ID mapping
+├── requirements.txt                # Python dependencies
+├── airway_counts_formatted.csv     # Sample gene expression counts matrix
+├── airway_metadata_formatted.csv   # Sample metadata file
+├── README.md                       # Documentation
+└── Pictures/                       # Screenshots for README
 ```
 
 ---
